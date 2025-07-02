@@ -43,8 +43,17 @@ public class NoteService {
         return renderer.render(parser.parse(note.getContent()));
     }
 
+    /**
+     * Realiza a checagem gramatical do conteúdo da nota usando LanguageTool.
+     * 
+     * @param id ID da nota a ser verificada
+     * @return Lista de erros gramaticais encontrados
+     * @throws Exception caso a nota não seja encontrada ou ocorra erro no
+     *                   LanguageTool
+     */
     public List<RuleMatch> checkGrammar(Long id) throws Exception {
         Note note = noteRepository.findById(id).orElseThrow();
+
         return languageTool.check(note.getContent());
     }
 }
